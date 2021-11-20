@@ -19,3 +19,5 @@ pip install --upgrade pip
 \*\*May require sudo privileges
 
 Issues: Missing 12 or so videos
+
+export YOUTUBE_API_KEY=REPLACEME;

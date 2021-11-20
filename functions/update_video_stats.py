@@ -2,18 +2,23 @@
 
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
-
+import os
 
 # Set DEVELOPER_KEY to the API key value from the APIs & auth > Registered apps
 # tab of
 #   https://cloud.google.com/console
 # Please ensure that you have enabled the YouTube Data API for your project.
-DEVELOPER_KEY = 'REPLACEME'
+DEVELOPER_KEY = os.getenv('YOUTUBE_API_KEY')
 YOUTUBE_API_SERVICE_NAME = 'youtube'
 YOUTUBE_API_VERSION = 'v3'
 
 
 def youtube_search_all():
+    # DUMMY DATA
+    # videoMetadata = {'1_bzfLaiBW8': {'thumbnail': 'https://i.ytimg.com/vi/1_bzfLaiBW8/default.jpg', 'statistics': {u'commentCount': u'28', u'viewCount': u'2654', u'favoriteCount': u'0', u'dislikeCount': u'0', u'likeCount': u'143'}, 'description': "Welcome everyone to our Let's Play of Call to Adventure, the Stormlight Archive edition! In this episode, we'll be playing a competitive game of Call to Adventure, ...", 'publishedAt': '2021-02-09T17:58:47Z', 'title': 'Let&#39;s Play: Call to Adventure, the Stormlight Archive Edition!'}, 'a-z5MrE__V4': {'thumbnail': 'https://i.ytimg.com/vi/a-z5MrE__V4/default.jpg', 'statistics': {u'commentCount': u'59', u'viewCount': u'4510', u'favoriteCount': u'0', u'dislikeCount': u'3', u'likeCount': u'367'}, 'description': 'I (Jessie) went to JordanCon 2021 this July, with a bunch of other Sharders! Join in on my adventures and experiences, such as talking to Brandon, getting ...', 'publishedAt': '2021-07-30T20:47:24Z', 'title': 'I flew all the way to Atlanta, and all I (lovingly) got was some JORDANCON footage'}, 'EaEFLmAhoTk': {'thumbnail': 'https://i.ytimg.com/vi/EaEFLmAhoTk/default.jpg', 'statistics': {u'commentCount': u'33', u'viewCount': u'3439', u'favoriteCount': u'0', u'dislikeCount': u'2', u'likeCount': u'85'}, 'description': 'This week\'s episode of Shardcast we discuss the recent (ish) signing in Idaho Falls in late July. We get you up to date with "Adonalsium\'s opposition" (whatever ...', 'publishedAt': '2018-08-17T05:42:05Z', 'title': 'Adonalsium&#39;s Opposition and Idaho Falls Words of Brandon - Shardcast'}, 'Bi9_z2OQYnM': {'thumbnail': 'https://i.ytimg.com/vi/Bi9_z2OQYnM/default.jpg', 'statistics': {u'commentCount': u'15', u'viewCount': u'2692', u'favoriteCount': u'0', u'dislikeCount': u'1', u'likeCount': u'106'}, 'description': "We did a massive, five hour long livestream on Saturday for 17th Shard's tenth anniversary! This is the second part. In this part, we discuss our favorite ...", 'publishedAt': '2020-06-09T18:47:18Z', 'title': 'Tenth Anniversary Livestream! Part 2 - Shardcast'}, 'OZM3y_tmMwk': {'thumbnail': 'https://i.ytimg.com/vi/OZM3y_tmMwk/default.jpg', 'statistics': {u'commentCount': u'280', u'viewCount': u'17571', u'favoriteCount': u'0', u'dislikeCount': u'4', u'likeCount': u'529'}, 'description': "This week's episode is on the Lights of Roshar. Spoilers for Rhythm of War and the cosmere (but not Dawnshard) in this one! Here Evgeni really makes up for ...", 'publishedAt': '2020-12-13T18:00:32Z', 'title': 'Lights | Rhythm of War Shardcast'}, 'eQbNUOrKdSE': {
+    #     'thumbnail': 'https://i.ytimg.com/vi/eQbNUOrKdSE/default.jpg', 'statistics': {u'commentCount': u'28', u'viewCount': u'8830', u'favoriteCount': u'0', u'dislikeCount': u'3', u'likeCount': u'147'}, 'description': "Welcome to Shardcast, the Brandon Sanderson Podcast. Today we are here to discuss the Oathbringer's Part Two Epigraphs. That means it does have ...", 'publishedAt': '2017-11-15T15:38:19Z', 'title': 'Oathbringer Part Two Epigraphs - Shardcast'}, 'KzBwmWjITzk': {'thumbnail': 'https://i.ytimg.com/vi/KzBwmWjITzk/default.jpg', 'statistics': {u'commentCount': u'37', u'viewCount': u'2054', u'favoriteCount': u'0', u'dislikeCount': u'1', u'likeCount': u'109'}, 'description': "We got a new Brandon Sanderson book this year already, and it is Lux! It is an Audible original set in the Reckoners universe, and it's time for us to talk about it.", 'publishedAt': '2021-09-12T00:44:27Z', 'title': 'Lux Reactions | Reckoners Shardcast'}, 'g9DQ7BYVi9c': {'thumbnail': 'https://i.ytimg.com/vi/g9DQ7BYVi9c/default.jpg', 'statistics': {u'commentCount': u'78', u'viewCount': u'6063', u'favoriteCount': u'0', u'dislikeCount': u'3', u'likeCount': u'210'}, 'description': 'Welcome to the Overlady Reads Rhythm of War Part Three!!! As with the other weeks, this is a spoiler warning for Rhythm of War Part Three. Do not click this ...', 'publishedAt': '2020-11-30T20:31:12Z', 'title': 'Rhythm of War Reaction, Part Three | The Overlady Reads The Cosmere'}, 'a7W8SpsZ0OI': {'thumbnail': 'https://i.ytimg.com/vi/a7W8SpsZ0OI/default.jpg', 'statistics': {u'commentCount': u'196', u'viewCount': u'7403', u'favoriteCount': u'0', u'dislikeCount': u'52', u'likeCount': u'390'}, 'description': "Happy Pride Month everyone! This episode of Shardcast, we get very gay (if you couldn't tell from the thumbnail). We're talking about Queerness in the Cosmere ...", 'publishedAt': '2021-06-19T20:52:49Z', 'title': 'Queerness in the Cosmere | Rhythm of War Shardcast'}, '1at78WNWhY8': {'thumbnail': 'https://i.ytimg.com/vi/1at78WNWhY8/default.jpg', 'statistics': {u'commentCount': u'21', u'viewCount': u'4601', u'favoriteCount': u'0', u'dislikeCount': u'2', u'likeCount': u'104'}, 'description': "This week on Shardcast, we're talking about the time on Roshar after the Last Desolation. We talk about the Recreance, the False Desolation, and beyond!", 'publishedAt': '2019-02-22T08:20:37Z', 'title': 'History of Roshar Part 2 - Shardcast'}}
+
+    # REAL FUNCTION
     videoMetadata = {}
     nextPageToken = None
     while True:
@@ -23,6 +28,7 @@ def youtube_search_all():
         nextPageToken = page.get("nextPageToken")
         if not nextPageToken:
             break
+    return videoMetadata
 
 
 def collect_videos_meta(page, videoMetadata):
@@ -52,9 +58,6 @@ def youtube_video_search(page_token=None):
         type='video'
     ).execute()
 
-    # search_response = {u'nextPageToken': u'CDIQAA', u'kind': u'youtube#searchListResponse', u'items': [{u'snippet': {u'thumbnails': {u'default': {u'url': u'https://i.ytimg.com/vi/uMAX-ymwTBY/default.jpg', u'width': 120, u'height': 90}, u'high': {u'url': u'https://i.ytimg.com/vi/uMAX-ymwTBY/hqdefault.jpg', u'width': 480, u'height': 360}, u'medium': {u'url': u'https://i.ytimg.com/vi/uMAX-ymwTBY/mqdefault.jpg', u'width': 320, u'height': 180}}, u'title': u'Medallions &amp; Magitech of Southern Scadrial | Mistborn Shardcast', u'channelId': u'UCoQ_bdyuPxDqz83g9uyUqfQ', u'publishTime': u'2021-11-07T17:43:42Z', u'publishedAt': u'2021-11-07T17:43:42Z', u'liveBroadcastContent': u'none', u'channelTitle': u'17th Shard', u'description': u"It feels like it's been ages since we've been done an extremely pedantic mechanics episode, and we reread The Bands of Mourning, so it's finally time to do one ..."}, u'kind': u'youtube#searchResult', u'etag': u'wIZcv3OxdDrogUl-MzZWv1C4ILA', u'id': {u'kind': u'youtube#video', u'videoId': u'uMAX-ymwTBY'}}, {u'snippet': {u'thumbnails': {u'default': {u'url': u'https://i.ytimg.com/vi/pR74icyGD8Q/default.jpg', u'width': 120, u'height': 90}, u'high': {u'url': u'https://i.ytimg.com/vi/pR74icyGD8Q/hqdefault.jpg', u'width': 480, u'height': 360}, u'medium': {u'url': u'https://i.ytimg.com/vi/pR74icyGD8Q/mqdefault.jpg', u'width': 320, u'height': 180}}, u'title': u'ReDawn Reactions &quot;Mini&quot;sode | Skyward Shardcast', u'channelId': u'UCoQ_bdyuPxDqz83g9uyUqfQ', u'publishTime': u'2021-11-02T16:14:24Z', u'publishedAt': u'2021-11-02T16:14:24Z', u'liveBroadcastContent': u'none', u'channelTitle': u'17th Shard', u'description': u"ReDawn, the second of the Skyward Flight novellas came out on October 26th, and so we're here with another bonus Shardcast doing our reactions! It's not very ..."}, u'kind': u'youtube#searchResult', u'etag': u'mNHsQr3UiCij9g8S321zsecIHV8', u'id': {u'kind': u'youtube#video', u'videoId': u'pR74icyGD8Q'}}, {
-    #     u'snippet': {u'thumbnails': {u'default': {u'url': u'https://i.ytimg.com/vi/737DCuJARfI/default.jpg', u'width': 120, u'height': 90}, u'high': {u'url': u'https://i.ytimg.com/vi/737DCuJARfI/hqdefault.jpg', u'width': 480, u'height': 360}, u'medium': {u'url': u'https://i.ytimg.com/vi/737DCuJARfI/mqdefault.jpg', u'width': 320, u'height': 180}}, u'title': u'Brandon Sanderson&#39;s Use of Horror | Shardcast', u'channelId': u'UCoQ_bdyuPxDqz83g9uyUqfQ', u'publishTime': u'2021-10-23T18:29:18Z', u'publishedAt': u'2021-10-23T18:29:18Z', u'liveBroadcastContent': u'none', u'channelTitle': u'17th Shard', u'description': u"It's October, the spoopy season, so let's do an episode on Brandon's use of horror in his works! This one has spoilers for uh basically every Brandon's works."}, u'kind': u'youtube#searchResult', u'etag': u'dMT1eSZBkcrEuho1AYdSIZ-wGcM', u'id': {u'kind': u'youtube#video', u'videoId': u'737DCuJARfI'}}, {u'snippet': {u'thumbnails': {u'default': {u'url': u'https://i.ytimg.com/vi/8WcmRAKGvUc/default.jpg', u'width': 120, u'height': 90}, u'high': {u'url': u'https://i.ytimg.com/vi/8WcmRAKGvUc/hqdefault.jpg', u'width': 480, u'height': 360}, u'medium': {u'url': u'https://i.ytimg.com/vi/8WcmRAKGvUc/mqdefault.jpg', u'width': 320, u'height': 180}}, u'title': u'Guess the Sanderson Challenge, Part 2!', u'channelId': u'UCoQ_bdyuPxDqz83g9uyUqfQ', u'publishTime': u'2021-10-12T16:27:56Z', u'publishedAt': u'2021-10-12T16:27:56Z', u'liveBroadcastContent': u'none', u'channelTitle': u'17th Shard', u'description': u"Welcome to the second Guess the Sanderson challenge on the channel! This time, it's Ben and L doing the guessing and the sandersoning. Let us know how ..."}, u'kind': u'youtube#searchResult', u'etag': u'g_h_Rs1dN4UAw0NXIgF2aWbeTCo', u'id': {u'kind': u'youtube#video', u'videoId': u'8WcmRAKGvUc'}}], u'regionCode': u'US', u'etag': u'K6PPqSMuqL04YPTnG4A1N8LL6Mk', u'pageInfo': {u'resultsPerPage': 50, u'totalResults': 242}}
-
     return search_response
 
 
@@ -82,6 +85,7 @@ def youtube_statistic_search(page, videoMetadata):
 
 if __name__ == '__main__':
     try:
-        youtube_search_all()
+        data = youtube_search_all()
+        print(data)
     except HttpError as e:
         print('An HTTP error %d occurred:\n%s') % (e.resp.status, e.content)
