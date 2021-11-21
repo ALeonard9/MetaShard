@@ -21,10 +21,11 @@ CREATE TABLE "episode" (
 
 CREATE TABLE "person" (
   "id" INTEGER NOT NULL,
-  "handle" TEXT NULL UNIQUE,
+  "handle" TEXT NULL,
   "name" TEXT NULL,
   "created" timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY ("id" AUTOINCREMENT)
+  PRIMARY KEY ("id" AUTOINCREMENT),
+  UNIQUE("handle", "name") ON CONFLICT REPLACE
 );
 
 CREATE TABLE "person_episode" (
