@@ -1,5 +1,4 @@
-def add(x, y):
-    return x + y
+from functions.example_test import add
 
 
 def test_add():

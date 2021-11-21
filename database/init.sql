@@ -1,5 +1,6 @@
 DROP TABLE IF EXISTS "guess";
 DROP TABLE IF EXISTS "question";
+DROP TABLE IF EXISTS "person_episode";
 DROP TABLE IF EXISTS "episode";
 DROP TABLE IF EXISTS "cos_character";
 DROP TABLE IF EXISTS "person";
@@ -20,11 +21,23 @@ CREATE TABLE "episode" (
 
 CREATE TABLE "person" (
   "id" INTEGER NOT NULL,
-  "handle" TEXT NULL,
+  "handle" TEXT NULL UNIQUE,
   "name" TEXT NULL,
   "created" timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY ("id" AUTOINCREMENT)
 );
+
+CREATE TABLE "person_episode" (
+  "id" INTEGER NOT NULL,
+  "person_id" INTEGER NOT NULL,
+  "episode_id" INTEGER NOT NULL,
+  "created" timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY ("id" AUTOINCREMENT),
+  FOREIGN KEY("person_id") REFERENCES person("id"),
+  FOREIGN KEY("episode_id") REFERENCES episode("id"),
+  UNIQUE("person_id", "episode_id") ON CONFLICT REPLACE
+);
+
 
 CREATE TABLE "cos_character" (
   "id" INTEGER NOT NULL,
