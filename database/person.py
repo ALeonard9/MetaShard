@@ -1,0 +1,16 @@
+person_data = [("Kerry", "KChan"),
+               ("Ian", "WeiryWriter"),
+               ("David", "Windrunner"),
+               ("Eric", "Chaos"),
+               ("Alyx", "FeatherWriter"),
+               ("Ben", "Overlord Jebus"),
+               ("Matt", "Comatose"),
+               ("Shannon", "Greywatch"),
+               ("Ewan Johnson", ""),  # Special guest: Arcturus XR
+               ("Evgeni", "Argent"),
+               ("Rosemary", "Kaymyth"),
+               ("Grace", "thegatorgirl"),
+               ("Josh", "Rubix"),
+               ("Joshua", "jofwu"),
+               ("Mi'chelle", "firstRainbowRose"),
+               ("Colton", "coltonx9")]

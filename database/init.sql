@@ -25,7 +25,7 @@ CREATE TABLE "person" (
   "name" TEXT NULL,
   "created" timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY ("id" AUTOINCREMENT),
-  UNIQUE("handle", "name") ON CONFLICT REPLACE
+  UNIQUE("handle", "name") ON CONFLICT IGNORE
 );
 
 CREATE TABLE "person_episode" (
@@ -36,7 +36,7 @@ CREATE TABLE "person_episode" (
   PRIMARY KEY ("id" AUTOINCREMENT),
   FOREIGN KEY("person_id") REFERENCES person("id"),
   FOREIGN KEY("episode_id") REFERENCES episode("id"),
-  UNIQUE("person_id", "episode_id") ON CONFLICT REPLACE
+  UNIQUE("person_id", "episode_id") ON CONFLICT IGNORE
 );
 
 
