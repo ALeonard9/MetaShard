@@ -13,4 +13,9 @@ person_data = [("Kerry", "KChan"),
                ("Josh", "Rubix"),
                ("Joshua", "jofwu"),
                ("Mi'chelle", "firstRainbowRose"),
-               ("Colton", "coltonx9")]
+               ("Colton", "coltonx9"),
+               ("Marvin", "Paleo"),
+               ("Danielle", "FelCandy"),
+               ("Lucy", "Empress"),
+               ("Isaac Stewart", ""),
+               ("Kara Stewart", "")]
