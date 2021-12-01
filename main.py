@@ -12,7 +12,7 @@ con = sqlite3.connect('database/17s.db')
 cur = con.cursor()
 
 initialize_db(cur)
-populate_episode(cur)g
+populate_episode(cur)
 populate_person(cur)
 populate_person_episode(cur)
 
