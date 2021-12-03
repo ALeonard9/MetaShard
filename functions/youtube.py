@@ -3,6 +3,7 @@
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 import os
+import isodate
 
 # Set DEVELOPER_KEY to the API key value from the APIs & auth > Registered apps
 # tab of
@@ -33,7 +34,7 @@ def youtube_search_all():
 
 def collect_videos_meta(page, videoMetadata):
     for video in page['items']:
-        videoId = str(video['id']['videoId'])
+        videoId = str(video['snippet']['resourceId']['videoId'])
         videoMetadata[videoId] = {'title': str(video['snippet']['title']), 'publishedAt': str(
             video['snippet']['publishedAt']), 'description': str(
             video['snippet']['description']), 'thumbnail': str(
@@ -46,16 +47,15 @@ def youtube_video_search(page_token=None):
     youtube = build(YOUTUBE_API_SERVICE_NAME, YOUTUBE_API_VERSION,
                     developerKey=DEVELOPER_KEY)
 
-    # Channel ID for 17th Shard
-    CHANNEL_ID = 'UCoQ_bdyuPxDqz83g9uyUqfQ'
+    # Channel ID / Uploads list for 17th Shard
+    # CHANNEL_ID = 'UCoQ_bdyuPxDqz83g9uyUqfQ'
+    UPLOADS_PLAYLIST = 'UUoQ_bdyuPxDqz83g9uyUqfQ'
 
-    search_response = youtube.search().list(
+    search_response = youtube.playlistItems().list(
         part='snippet',
-        channelId=CHANNEL_ID,
+        playlistId=UPLOADS_PLAYLIST,
         maxResults=50,
-        order='date',
-        pageToken=page_token,
-        type='video'
+        pageToken=page_token
     ).execute()
 
     return search_response
@@ -67,18 +67,20 @@ def youtube_statistic_search(page, videoMetadata):
 
     IDs = []
     for video in page['items']:
-        IDs.append(str(video['id']['videoId']))
+        IDs.append(str(video['snippet']['resourceId']['videoId']))
 
     videoIds_concat = ','.join(IDs)
 
     search_response = youtube.videos().list(
-        part="statistics",
+        part="statistics,contentDetails",
         id=videoIds_concat
     ).execute()
 
     for video in search_response['items']:
         videoId = str(video['id'])
         videoMetadata[videoId]['statistics'] = video['statistics']
+        videoMetadata[videoId]['duration'] = isodate.parse_duration(
+            video['contentDetails']['duration']).total_seconds()
 
     return videoMetadata
 

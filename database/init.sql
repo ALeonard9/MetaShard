@@ -7,16 +7,18 @@ DROP TABLE IF EXISTS "person";
 
 CREATE TABLE "episode" (
   "id" INTEGER NOT NULL,
-  "yt_id" TEXT NOT NULL UNIQUE,
+  "yt_id" TEXT NOT NULL ,
   "title" TEXT NOT NULL,
   "thumbnail" TEXT,
+  "duration" REAL,
   "view_count" INTEGER,
   "like_count" INTEGER,
   "comment_count" INTEGER,
   "description" TEXT,
   "date" datetime NULL,
   "created" timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY ("id" AUTOINCREMENT)
+  PRIMARY KEY ("id" AUTOINCREMENT),
+  UNIQUE("yt_id") ON CONFLICT IGNORE
 );
 
 CREATE TABLE "person" (
