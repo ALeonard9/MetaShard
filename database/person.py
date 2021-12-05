@@ -1,3 +1,4 @@
+# Name, handle
 person_data = [("Kerry", "KChan"),
                ("Ian", "WeiryWriter"),
                ("David", "Windrunner"),

@@ -1,8 +1,8 @@
-DROP TABLE IF EXISTS "guess";
-DROP TABLE IF EXISTS "question";
+-- DROP TABLE IF EXISTS "guess";
+-- DROP TABLE IF EXISTS "question";
 DROP TABLE IF EXISTS "person_episode";
 DROP TABLE IF EXISTS "episode";
-DROP TABLE IF EXISTS "cos_character";
+-- DROP TABLE IF EXISTS "cos_character";
 DROP TABLE IF EXISTS "person";
 
 CREATE TABLE "episode" (
@@ -15,6 +15,10 @@ CREATE TABLE "episode" (
   "like_count" INTEGER,
   "comment_count" INTEGER,
   "description" TEXT,
+  "book" TEXT NULL, -- Primary book if multiple
+  "series" TEXT NULL, -- Primary series if multiple
+  "universe" TEXT NULL,
+  "category" TEXT NULL, -- Shardcast / Game / Stream / Feleocast / Overlady Reads
   "date" datetime NULL,
   "created" timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY ("id" AUTOINCREMENT),
@@ -42,40 +46,41 @@ CREATE TABLE "person_episode" (
 );
 
 
-CREATE TABLE "cos_character" (
-  "id" INTEGER NOT NULL,
-  "name" TEXT NOT NULL,
-  "series" TEXT NULL,
-  "created" timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY ("id" AUTOINCREMENT)
-);
+-- CREATE TABLE "cos_character" (
+--   "id" INTEGER NOT NULL,
+--   "name" TEXT NOT NULL,
+--   "series" TEXT NULL,
+--   "created" timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+--   PRIMARY KEY ("id" AUTOINCREMENT)
+-- );
 
-CREATE TABLE "question" (
-  "id" INTEGER NOT NULL,
-  "episode_id" INTEGER NOT NULL,
-  "cluegiver_person_id" INTEGER NOT NULL,
-  "answer_character_id" INTEGER NOT NULL,
-  "clue1" TEXT,
-  "clue2" TEXT,
-  "clue3" TEXT,
-  "clue4" TEXT,
-  "clue5" TEXT,
-  "created" timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY ("id" AUTOINCREMENT),
-  FOREIGN KEY ("episode_id") REFERENCES episode("id"),
-  FOREIGN KEY ("cluegiver_person_id") REFERENCES person("id"),
-  FOREIGN KEY ("answer_character_id") REFERENCES cos_character("id")
-);
+-- CREATE TABLE "question" (
+--   "id" INTEGER NOT NULL,
+--   "episode_id" INTEGER NOT NULL,
+--   "wtcc_marker" TEXT NULL, -- Timestamp for WTCC
+--   "cluegiver_person_id" INTEGER  NULL,
+--   "answer_character_id" INTEGER NOT NULL,
+--   "clue1" TEXT,
+--   "clue2" TEXT,
+--   "clue3" TEXT,
+--   "clue4" TEXT,
+--   "clue5" TEXT,
+--   "created" timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+--   PRIMARY KEY ("id" AUTOINCREMENT),
+--   FOREIGN KEY ("episode_id") REFERENCES episode("id"),
+--   FOREIGN KEY ("cluegiver_person_id") REFERENCES person("id"),
+--   FOREIGN KEY ("answer_character_id") REFERENCES cos_character("id")
+-- );
 
-CREATE TABLE "guess" (
-  "id" INTEGER NOT NULL,
-  "question_id" INTEGER NOT NULL,
-  "guesser_person_id" INTEGER NOT NULL,
-  "character_id" INTEGER NOT NULL,
-  "clue_number" INTEGER NOT NULL,
-  "created" timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY ("id" AUTOINCREMENT),
-  FOREIGN KEY ("question_id") REFERENCES question("id"),
-  FOREIGN KEY ("guesser_person_id") REFERENCES person("id"),
-  FOREIGN KEY ("character_id") REFERENCES cos_character("id")
-);
+-- CREATE TABLE "guess" (
+--   "id" INTEGER NOT NULL,
+--   "question_id" INTEGER NOT NULL,
+--   "guesser_person_id" INTEGER NOT NULL,
+--   "character_id" INTEGER NOT NULL,
+--   "clue_number" INTEGER NOT NULL,
+--   "created" timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+--   PRIMARY KEY ("id" AUTOINCREMENT),
+--   FOREIGN KEY ("question_id") REFERENCES question("id"),
+--   FOREIGN KEY ("guesser_person_id") REFERENCES person("id"),
+--   FOREIGN KEY ("character_id") REFERENCES cos_character("id")
+-- );

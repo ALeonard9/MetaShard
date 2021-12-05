@@ -4,7 +4,7 @@ from functions.database import initialize_db
 from functions.database import populate_episode
 from functions.database import populate_person
 from functions.database import populate_person_episode
-
+from functions.database import populate_episode_metadata
 
 import sqlite3
 
@@ -13,6 +13,7 @@ cur = con.cursor()
 
 initialize_db(cur)
 populate_episode(cur)
+populate_episode_metadata(cur)
 populate_person(cur)
 populate_person_episode(cur)
 
