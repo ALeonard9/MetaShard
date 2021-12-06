@@ -474,4 +474,6 @@ episode_data = [("Oathbringer", "Stormlight Archive", "Cosmere", "Shardcast", "e
                  "17th Shard November Chatting Stream"),
                 ("Multiple", "Stormlight Archive", "Cosmere", "Shardcast", "k9liwCPZZ9E",
                  "Jasnah | Rhythm of War Shardcast"),
-                ("Cytonic", "Skyward", "Cytoverse", "Solo Review", "leggchPjUMk", "Cytonic Spoiler-Free Review: This One Will Be Divisive!")]
+                ("Cytonic", "Skyward", "Cytoverse", "Solo Review", "leggchPjUMk",
+                 "Cytonic Spoiler-Free Review: This One Will Be Divisive!"),
+                ("Cytonic", "Skyward", "Cytoverse", "Shardcast", "_981G7bZeho", "Cytonic Reactions | Shardcast")]
